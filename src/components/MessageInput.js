@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addMessage } from '../redux/messagesSlice';
 import db from '../firebase';
 import './MessageInput.css';
+import firebase from "firebase/compat/app";
 
 const MessageInput = () => {
   const [message, setMessage] = useState('');
-  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (message.trim() === '') return;
 
-    dispatch(addMessage(message));
-    db.collection('messages').add({ text: message });
+    const newMessage = {
+      text: message,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    };
+
+    await db.collection('messages').add(newMessage);
     setMessage('');
   };
 

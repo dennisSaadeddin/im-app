@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeMessage } from '../redux/messagesSlice';
+import { addMessage, removeMessage, fetchMessages } from '../redux/messagesSlice';
 import db from '../firebase';
 import './MessageQueue.css';
 
@@ -9,22 +9,32 @@ const MessageQueue = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchMessages());
+
+    const unsubscribe = db.collection('messages')
+      .orderBy('timestamp')
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if (change.type === 'added') {
+            dispatch(addMessage({ id: change.doc.id, ...change.doc.data() }));
+          } else if (change.type === 'removed') {
+            dispatch(removeMessage(change.doc.id));
+          }
+        });
+      });
+
+    return () => unsubscribe();
+  }, [dispatch]);
+
+  useEffect(() => {
     messages.forEach((message) => {
       const timer = setTimeout(() => {
-        dispatch(removeMessage(message.id));
-        db.collection('messages')
-          .where('text', '==', message.text)
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              doc.ref.delete();
-            });
-          });
+        db.collection('messages').doc(message.id).delete();
       }, 5000);
 
       return () => clearTimeout(timer);
     });
-  }, [messages, dispatch]);
+  }, [messages]);
 
   return (
     <div className="message-queue-container">

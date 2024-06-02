@@ -2,13 +2,14 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
+
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_STORAGE_BUCKET',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  apiKey: "AIzaSyCKNdX26kUGrF9Xf-FNEPNBItzCKE22tK0",
+  authDomain: "im-app-1995.firebaseapp.com",
+  projectId: "im-app-1995",
+  storageBucket: "im-app-1995.appspot.com",
+  messagingSenderId: "1039152374419",
+  appId: "1:1039152374419:web:26e9e8491d1ce69c972366"
 };
 
 firebase.initializeApp(firebaseConfig);
