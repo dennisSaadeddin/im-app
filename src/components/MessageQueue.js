@@ -1,4 +1,3 @@
-// src/components/MessageQueue.js
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeMessage } from '../redux/messagesSlice';
