@@ -1,4 +1,27 @@
-# Getting Started with Create React App
+## Implementation architecture
+
+**Firebase Configuration (`src/firebase.js`)**: Sets up and initializes Firebase Firestore.
+
+**Redux Store (`src/redux/store.js`)**: Configures the Redux store to manage application state.
+
+**Redux Slice (`src/redux/messagesSlice.js`)**: Defines state management logic for messages, including actions and reducers.
+
+**Message Input Component (`src/components/MessageInput.js`)**: Provides an input box and submit button for adding messages.
+
+**Message Queue Component (`src/components/MessageQueue.js`)**: Displays messages from Firestore in real-time and handles their automatic removal.
+
+**App Component (`src/App.js`)**: Integrates all components and provides the Redux store to them.
+
+**Index File (`src/index.js`)**: Entry point of the application, rendering the root component.
+
+**CSS Files**: Styles for the components to make the UI more user-friendly.
+
+## Building the docker image
+
+In a terminal window, on a machine with Docker installed, navigate to the root directory of the project and run the following command:
+`docker build -t message-queue-app .`
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
